@@ -7,19 +7,26 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 
+    ##initialize s to null for new matrix
     s <- NULL
+    ## x stores the matrix and s will store the inverse
     set <- function(y) {
         x <<- y
         s <<- NULL
+    
     }
+    
+    #get just returns the matrix
     get <- function() x
-    setinverse <- function(cacheSolve) s <<- cacheSolve
+    
+    setinverse <- function(solve) s <<- solve
     getinverse <- function() s
+    
+    #define the public methods
     list(set = set, get = get,
          setinverse = setinverse,
          getinverse = getinverse)
-    
-}
+    }
 
 
 ##CacheSolve: 
@@ -43,7 +50,6 @@ cacheSolve <- function(x, ...) {
     data <- x$get()        # we reach this code only if x$getinverse() returned NULL
     s <- solve(data, ...)   # if m was NULL then we have to calculate the inverse
     x$setinverse(s)           # store the calculated inverse value in x (see setinverse() in makeCacheMatrix)
-    s                      # return the inverse to the code that called this function
-        
+    s                      # return the inverse to the code that called this function       
     
 }

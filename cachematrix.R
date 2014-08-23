@@ -13,7 +13,7 @@ makeCacheMatrix <- function(x = matrix()) {
         s <<- NULL
     }
     get <- function() x
-    setinverse <- function(x) s <<- solve
+    setinverse <- function(cacheSolve) s <<- cacheSolve
     getinverse <- function() s
     list(set = set, get = get,
          setinverse = setinverse,
@@ -41,7 +41,7 @@ cacheSolve <- function(x, ...) {
         #   the function cachemean(), note
     }
     data <- x$get()        # we reach this code only if x$getinverse() returned NULL
-    m <- solve(data, ...)   # if m was NULL then we have to calculate the inverse
+    s <- solve(data, ...)   # if m was NULL then we have to calculate the inverse
     x$setinverse(s)           # store the calculated inverse value in x (see setinverse() in makeCacheMatrix)
     s                      # return the inverse to the code that called this function
         
